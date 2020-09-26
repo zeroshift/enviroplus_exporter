@@ -278,6 +278,7 @@ if __name__ == '__main__':
     logging.info("Listening on http://{}:{}".format(args.bind, args.port))
 
     while True:
+        time.sleep(5)
         get_temperature(args.factor)
         get_pressure()
         get_humidity()
