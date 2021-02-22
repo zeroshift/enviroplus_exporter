@@ -59,6 +59,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
+* [Docker](#docker)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
@@ -87,7 +88,8 @@ To get the prometheus enviroplus-exporter up and running I'm assuming you alread
 
 ### Prerequisites
 
-To run the enviroplus-exporter you need to have the enviroplus-python library by Pimoroni installed:
+- Python3
+- To run the enviroplus-exporter you need to have the enviroplus-python library by Pimoroni installed:
  
 ### One-line (Installs enviroplus-python library from GitHub)
 
@@ -110,7 +112,7 @@ sudo chown -R pi:pi /usr/src/enviroplus_exporter
 
 2.Install dependencies for enviroplus-exporter
 ```sh
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 3.Install as a Systemd service
@@ -151,6 +153,10 @@ Jan 17 14:13:41 wall-e python[30373]: 2020-01-17 14:13:41.581 INFO     Listening
 ```sh
 sudo systemctl enable enviroplus-exporter
 ```
+
+## Enviro users
+
+If you are using an Enviro (not Enviro+) add `--enviro=true` to the command line (in the `/etc/systemd/system/enviroplus-exporter.service` file) then it won't try to use the missing sensors.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -231,10 +237,19 @@ I published the dashboard on [grafana.com](https://grafana.com/grafana/dashboard
   <a href="images/grafana_dashboard_2.png">
     <img src="images/grafana_dashboard_2.png" alt="Grafana Dashboard 2" width="480" height="280">
   </a>
-  <a href="images/grafana_dashboard_3.png">
-    <img src="images/grafana_dashboard_3.png" alt="Grafana Dashboard 3" width="480" height="280">
-  </a>
 </p>
+
+### Docker
+
+There is a Dockerfile available if you'd like to run as a docker container.
+
+1.Building
+
+```docker build -t enviroplus-exporter .```
+
+2.Running
+
+```docker run -d enviroplus-exporter -d -p 8000:8000 --device=/dev/i2c-1 --device=/dev/gpiomem --device=/dev/ttyAMA0 enviroplus-exporter```
 
 <!-- ROADMAP -->
 ## Roadmap
